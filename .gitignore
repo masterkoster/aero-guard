@@ -1,0 +1,22 @@
+# Jac runtime state (graph persistence)
+.jac/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node (if frontend tooling sneaks in)
+node_modules/
+
+# Secrets & env
+.env
+*.pem
+
+# macOS
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
