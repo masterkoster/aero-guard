@@ -1,0 +1,10 @@
+# AERO-GUARD runtime dependencies.
+#
+# The decision engine is Jac; this pulls in the Jac toolchain and the standard
+# library it leans on for the data pipeline.
+#
+#   python3 -m venv .venv
+#   source .venv/bin/activate
+#   pip install -r requirements.txt
+
+jaclang==0.16.7
