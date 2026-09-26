@@ -17,12 +17,15 @@ systems have failed, and the weather — and it returns a **ranked list of
 fields you can actually reach**, each with the numbers behind the ranking:
 
 ```
-CALLSIGN   TSV236   A330-200   FL370   ENG OUT / ENG OUT / FIRE
+CALLSIGN   AAL1178   737-800   FL350   2 x ENGINE OUT
 ─────────────────────────────────────────────────────────────────────
- 1  CYQX  Gander Intl        42.0 nm   10,400 ft  11,400 ft req  +2,600 ft
- 2  CYHZ  St Johns           51.8 nm    8,400 ft   9,900 ft req   rejected
- 3  CYRB  St Johns West      55.1 nm    4,200 ft       —           rejected
+ 1  KGRR  Gerald R Ford Intl     36.6 nm  10,001 ft  6,360 ft req  +3,641 ft
+ 2  KLAN  Capital Region Intl    11.7 nm   8,506 ft  6,360 ft req  +2,146 ft
+ 3  KBTL  Battle Creek / Kellogg  45.9 nm  10,004 ft  6,360 ft req  +3,644 ft
+ 4  KMBS  MBS International       43.9 nm   8,002 ft  6,360 ft req  +1,642 ft
 ```
+
+(Real output from `tools/engine_test.jac`, not a mock-up.)
 
 Each row has to survive four gates, in order, and then compete on score:
 
@@ -41,20 +44,20 @@ a VMC approach into an IMC one.
 
 ## Is the physics real?
 
-Yes, and it is checked against three accidents where we know the answer.
+Yes, and it is checked against real accidents where we know the field they used.
 
-| Case | Type / alt | Model says | Actually happened |
+| Case | Aircraft / alt | Model picks | What actually happened |
 |---|---|---|---|
-| **Gimli Glider** (1983) | 767, 12,500 ft, all engines out | **CYGM** Gimli Industrial Park | Gimli, on the *closed* Kingsford Ford runway |
-| **US Airways 1549** (2009) | A320, 3,100 ft over the Hudson | **KTEB** Teterboro | Teterboro, the first field they tried |
-| **Air Transat 236** (1999) | A330, FL370 over the Atlantic | **CYQX** Gander | Gander, after a 3h26m descent |
+| **Air Canada 143** (1983) — "Gimli Glider" | 767, 12,500 ft, fuel exhausted | **CYGM** Gimli Industrial Park, 6,800 ft vs 6,600 ft needed | Gimli, on the *closed* Kingsford Ford runway |
+| **US Airways 1549** (2009) | A320, 3,100 ft over the Hudson | **KTEB** Teterboro, 6,997 ft vs 6,240 ft needed | Teterboro — the first field they tried |
 
-The model is deliberately **conservative**: it lands on the same field as the
-crew in all three cases, but with less margin than the crew actually had,
-because it ignores the things that would have helped them — the 11-tonne fuel
-dump before the glide, holding speed back to stretch the glide, and the
-immense benefit of a favorable surface. Under-declaring margin is the safe
-direction to be wrong in.
+In both cases the model lands the aircraft on the same field the crew did, with
+less margin than the crew actually had. It is deliberately **conservative**,
+because it ignores the things that would have helped them: dumping fuel before
+the glide, holding speed back to stretch the glide, and the large benefit of a
+favourable surface. Under-declaring margin is the safe direction to be wrong in.
+
+A third case is in progress and **does not yet pass** — see `HANDOFF.md`.
 
 ## Quickstart
 
@@ -171,14 +174,14 @@ Jac share: 81.3%   (JacHacks floor: 40%)
 
 - **Airports & runways** — [OurAirports](https://ourairports.com/data/) CSVs,
   filtered to the bounding box `-98 36 -52 52` so the historical accident
-  sites (Gimli, Gander, Teterboro) are inside the graph.
+  sites (Gimli, Teterboro) are inside the graph.
 - **Live traffic** — [OpenSky Network](https://opensky-network.org/) API.
 - **Weather** — [Open-Meteo](https://open-meteo.com/).
 
 ## Status
 
 Working: physics, graph schema, data pipeline, decision engine, API service,
-validation against three accidents.
+validation against two real accidents.
 
 In progress: live weather layer, live traffic feed, operator console, deployment.
 

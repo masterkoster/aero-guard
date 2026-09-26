@@ -9,7 +9,10 @@ Closed-form performance, no integration loops:
   * failure-mode -> PerformanceProfile mapping
 
 Every constant carries its provenance in a comment. Numbers are tuned to land
-within ~15% of three real events (Gimli 767, Air Transat A330, US Airways 1549).
+within ~15% of two real events that the model reproduces correctly (Air Canada
+143 / Gimli 767, US Airways 1549).  The A330 entry below is calibrated to the
+one measured A330 glide there is, but the landing field for that flight is out
+of dataset range, so it is not a closed validation.  See HANDOFF.md.
 """
 
 import math;
@@ -207,8 +210,11 @@ def spec_for(code: str) -> AircraftSpec {
                             driftdown_ft=25000, crosswind_limit_kt=30.0);
     }
     if c in ["A332", "A333", "A339"] {
-        # Air Transat 236 (A330, 230 t) glided 120 km from FL370 with both
-        # engines out: 65 nm / 6.0 nm of altitude = ~11:1 achieved.
+        # Air Transat 236 (A330-243, C-GITS, 24 Aug 2001) lost both engines to
+        # fuel exhaustion over the Azores and glided 65 nm (120 km) from
+        # FL390: 65 nm / 6.4 nm of altitude = ~10:1 actually achieved.
+        # ld_max is 12:1, so this entry is ~15% OPTIMISTIC against the only
+        # real data point.  Drop it to 11.0 if you want the model conservative.
         return AircraftSpec(code=c, name="Airbus A330", engines=2, vg_kt=205.0,
                             ld_max=12.0, vref_kt=140.0, base_land_ft=6200,
                             driftdown_ft=24000, crosswind_limit_kt=30.0);

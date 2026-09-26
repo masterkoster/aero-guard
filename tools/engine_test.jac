@@ -50,14 +50,19 @@ with entry:__main__ {
     n: int = load_airports();
     print(f"[load] {n} airports, {runway_count()} runways in {time.time() - t0:.1f}s");
 
-    # Gimli Glider, 29 May 1983: 767-300, both engines out at 41,000 ft.
-    show("Gimli Glider (767-300, all engines out, 12,500 ft)",
+    # Air Canada 143, 29 May 1983: 767-300 ran dry at 41,000 ft, descended to
+    # about 12,500 ft before the glide became a decision.
+    show("Gimli Glider (767-300, fuel exhausted, 12,500 ft)",
          "AC8703", "B763", 50.65, -97.05, 12500, ["ENGINE_OUT_ALL"], 200.0, 8.0, 16.0, False);
 
-    # Air Transat 236: A330, both engines out plus fire, high and heavy.
-    show("Air Transat 236 (A330, dual engine out + fire, FL370)",
+    # Air Transat 236, 24 Aug 2001: A330-243 lost both engines to fuel
+    # exhaustion, NOT a fire, and landed at Lajes in the Azores after a 65 nm
+    # glide.  This scenario is placed off Newfoundland instead, so it is a
+    # physics regression case only -- it is not a replay of the real flight.
+    # See HANDOFF.md before presenting it as a historical case.
+    show("A330 over the North Atlantic (fuel exhaustion, FL370)",
          "TSV236", "A332", 48.6, -58.5, 37000,
-         ["ENGINE_OUT", "ENGINE_OUT", "FIRE"], 300.0, 28.0, -38.0, False);
+         ["ENGINE_OUT", "ENGINE_OUT", "FUEL_LEAK"], 300.0, 28.0, -38.0, False);
 
     # US Airways 1549: A320, dual engine out, 3,100 ft over the Hudson.
     show("US Airways 1549 (A320, all engines out, 3,100 ft)",

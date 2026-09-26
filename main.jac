@@ -57,7 +57,7 @@ def scenarios() -> list[dict[str, any]] {
                       "wind_alt_dir_deg": 210.0, "wind_alt_kt": 30.0,
                       "temp_c": 16.0, "precip": False, "ceiling_ft": 8000,
                       "max_candidates": 6});
-    SCENARIOS.append({"name": "Air Transat 236 - A330 over the Atlantic",
+    SCENARIOS.append({"name": "A330 over the North Atlantic - fuel exhaustion",
                       "callsign": "TSV236", "aircraft_type": "A332",
                       "lat": 48.6, "lon": -58.5, "alt_ft": 37000, "tas_kt": 290.0,
                       "track_deg": 265.0, "failures": ["ENGINE_OUT", "ENGINE_OUT", "FIRE"],
