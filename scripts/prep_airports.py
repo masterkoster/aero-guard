@@ -22,7 +22,9 @@ ROOT = os.path.dirname(HERE)
 RAW = os.path.join(ROOT, "data", "raw")
 
 # Demo default: Great Lakes region (covers DTW, Michigan, Chicago, Toronto, etc.)
-DEFAULT_BBOX = (-98.0, 38.0, -70.0, 52.0)  # min_lon, min_lat, max_lon, max_lat
+DEFAULT_BBOX = (-98.0, 36.0, -52.0, 52.0)  # min_lon, min_lat, max_lon, max_lat
+# Great Lakes + the US/Canada east coast out to Newfoundland, so historical
+# scenarios (Gimli, Gander, Teterboro) sit inside the graph.
 
 # Airport types we can land on (exclude 'closed' and 'heliport')
 KEEP_TYPES = {"small_airport", "medium_airport", "large_airport", "seaplane_base"}
